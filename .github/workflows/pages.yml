@@ -7,8 +7,8 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
+  pages: write         # required
+  id-token: write      # required for OIDC
 
 concurrency:
   group: "pages"
@@ -27,22 +27,28 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm ci
-        # If 'npm ci' fails (no lock file), use:
-        # run: npm install
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
 
-      - name: Build (Vite)
+      # (Path 1) No Vite base needed; your vite.config stays as-is
+      - name: Build
         run: npm run build
 
-      # Optional: lock the domain to this repo by auto-creating CNAME in dist.
-      # Replace with your real domain (www or apex) and uncomment:
+      # Optional: lock custom domain to this repo (uncomment & set yours)
       # - name: Add CNAME
       #   run: echo "www.yourdomain.com" > ./dist/CNAME
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "./dist"
+          path: ./dist
 
   deploy:
     needs: build
