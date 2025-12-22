@@ -1,7 +1,62 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, Zap } from "lucide-react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay } from "swiper/modules";
+import { useEffect, useRef, useState } from "react";
+import "swiper/css";
+import "swiper/css/pagination";
+// If you installed the ESM package, import it once anywhere in your app:
+import "@google/model-viewer";
+
+const PHASE_MS = 4000;     // 4s solid, 4s wireframe (50/50). Adjust as you like.
+const ROT_SPEED = Math.PI / PHASE_MS;
+const VIEW_MARGIN = 1.12; // 12% farther away; tweak 1.05–1.2 to taste // radians per ms -> a half-turn every phase
 
 const Hero = () => {
+  const solidRef = useRef<any>(null);
+  const wireRef  = useRef<any>(null);
+  const rafRef   = useRef<number | null>(null);
+
+  const [showWire, setShowWire] = useState(false);
+
+  useEffect(() => {
+    let theta = 0;                   // continuous camera angle
+    let last = performance.now();
+    let phaseStart = last;
+
+    const step = (t: number) => {
+      const dt = t - last;
+      last = t;
+
+      // advance rotation continuously
+      theta += ROT_SPEED * dt;       // rad
+      const viewerSolid = solidRef.current;
+      const viewerWire  = wireRef.current;
+
+      // read phi/radius from one viewer (defaults if missing)
+      const base = viewerSolid?.getCameraOrbit?.() ?? { theta: 0, phi: Math.PI / 2, radius: 2 };
+      const radiusSafe = base.radius * VIEW_MARGIN;  // <-- extra margin
+      const orbit = `${theta}rad ${base.phi}rad ${radiusSafe}m`;
+
+
+      // update both, so whichever is visible stays in sync
+      if (viewerSolid) viewerSolid.cameraOrbit = orbit;
+      if (viewerWire)  viewerWire.cameraOrbit  = orbit;
+
+      // handle 50/50 phase flip (no snapping)
+      if (t - phaseStart >= PHASE_MS) {
+        setShowWire(prev => !prev);
+        phaseStart = t;
+      }
+
+      rafRef.current = requestAnimationFrame(step);
+    };
+
+    rafRef.current = requestAnimationFrame(step);
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Animated mesh background */}
@@ -58,30 +113,71 @@ const Hero = () => {
 
           {/* 3D Model Preview with enhanced design */}
           <div className="mt-20 relative">
+            {/* Keep your top gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10 pointer-events-none"></div>
+
             <div className="rounded-3xl border-2 border-primary/30 bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-md p-10 animate-scale-in shadow-2xl">
               <div className="aspect-video rounded-2xl bg-gradient-to-br from-muted/40 to-background/60 border-2 border-primary/20 flex items-center justify-center relative overflow-hidden">
-                {/* Animated background grid */}
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(280_90%_65%/0.1)_1px,transparent_1px),linear-gradient(to_bottom,hsl(280_90%_65%/0.1)_1px,transparent_1px)] bg-[size:3rem_3rem]"></div>
-                
-                <div className="text-center relative z-10">
-                  <div className="w-80 h-80 mx-auto relative">
-                    {/* Outer ring */}
-                    <div className="absolute inset-0 rounded-full border-4 border-primary/30 border-dashed animate-spin" style={{ animationDuration: '20s' }}></div>
-                    
-                    {/* Middle ring */}
-                    <div className="absolute inset-8 rounded-full border-4 border-secondary/30 border-dashed animate-spin" style={{ animationDuration: '15s', animationDirection: 'reverse' }}></div>
-                    
-                    {/* Inner circle */}
-                    <div className="absolute inset-16 rounded-full bg-gradient-to-br from-primary/20 via-tertiary/20 to-secondary/20 flex items-center justify-center backdrop-blur-sm glow-multi">
-                      <div className="text-8xl font-black text-gradient">3D</div>
-                    </div>
-                    
-                    {/* Floating particles */}
-                    <div className="absolute top-10 left-10 w-4 h-4 bg-primary rounded-full animate-pulse"></div>
-                    <div className="absolute top-20 right-16 w-3 h-3 bg-secondary rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-                    <div className="absolute bottom-16 left-20 w-5 h-5 bg-accent rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
-                    <div className="absolute bottom-10 right-10 w-3 h-3 bg-tertiary rounded-full animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+
+                {/* Your animated background grid (stays behind) */}
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(280_90%_65%/0.1)_1px,transparent_1px),linear-gradient(to_bottom,hsl(280_90%_65%/0.1)_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none"></div>
+
+                {/* When wireframe is showing, place a FULL opaque cover above everything behind (z-20) */}
+                {showWire && (
+                  <div
+                    className="absolute inset-0 z-20"
+                    // Force fully opaque background regardless of theme alpha utilities:
+                    style={{ background: "hsl(var(--background))" }}
+                  />
+                )}
+
+                {/* Safe inset so content never touches the edges */}
+                <div className="absolute inset-0 z-30 p-4 sm:p-6 md:p-8">
+                  <div className="relative w-full h-full rounded-xl overflow-hidden">
+                    {/* Solid model */}
+                    <model-viewer
+                      ref={solidRef}
+                      src="/torus_knot_grey.glb"
+                      camera-controls
+                      shadow-intensity="0.6"
+                      exposure="0.9"
+                      environment-image="neutral"
+                      interaction-prompt="none"
+                      ar={false}
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        width: "100%",
+                        height: "100%",
+                        transition: "opacity 400ms ease",
+                        opacity: showWire ? 0 : 1,
+                        // optional: tiny scale cushion if your mesh is super tight
+                        // transform: "scale(0.98)",
+                        // transformOrigin: "center",
+                      }}
+                    />
+
+                    {/* Wireframe */}
+                    <model-viewer
+                      ref={wireRef}
+                      src="/torus_knot_wire_orange.glb"
+                      camera-controls
+                      shadow-intensity="0"
+                      exposure="1.0"
+                      environment-image="neutral"
+                      interaction-prompt="none"
+                      ar={false}
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        width: "100%",
+                        height: "100%",
+                        transition: "opacity 400ms ease",
+                        opacity: showWire ? 1 : 0,
+                        // transform: "scale(0.98)",
+                        // transformOrigin: "center",
+                      }}
+                    />
                   </div>
                 </div>
               </div>

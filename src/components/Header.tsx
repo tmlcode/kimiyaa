@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Menu, Sparkles } from "lucide-react";
+import { Menu, Sparkles, FileText } from "lucide-react";
 
 const Header = () => {
   return (
@@ -32,6 +32,51 @@ const Header = () => {
               Features
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-accent to-primary group-hover:w-full transition-all"></span>
             </a>
+            {/* Documentation dropdown */}
+            <div className="relative group">
+              <button
+                className="text-foreground/80 hover:text-tertiary transition-all font-semibold relative flex items-center gap-1"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Documentation
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-tertiary to-secondary group-hover:w-full transition-all"></span>
+              </button>
+
+              {/* Dropdown panel */}
+              <div className="pointer-events-none opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 group-hover:pointer-events-auto transition-all duration-200 absolute left-0 mt-3 min-w-[240px] rounded-2xl border border-primary/20 bg-background/90 backdrop-blur-xl shadow-2xl overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-card/60 to-card/20"></div>
+                <div className="relative z-10 p-2">
+                  <a
+                    href="/docs/kimiyaa.pdf"
+                    download
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-foreground/85 hover:text-primary hover:bg-primary/10 transition-all group/item"
+                  >
+                    <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary/30 via-tertiary/30 to-secondary/30 flex items-center justify-center glow-primary/40">
+                      <FileText className="w-5 h-5" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="font-semibold">Kimiyaa</div>
+                      <div className="text-xs text-foreground/60">Download PDF</div>
+                    </div>
+                  </a>
+
+                  <a
+                    href="/docs/kimiyaa-sketch2shape.pdf"
+                    download
+                    className="mt-1 flex items-center gap-3 px-4 py-3 rounded-xl text-foreground/85 hover:text-secondary hover:bg-secondary/10 transition-all group/item"
+                  >
+                    <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-secondary/30 via-accent/30 to-primary/30 flex items-center justify-center glow-primary/40">
+                      <FileText className="w-5 h-5" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="font-semibold">Kimiyaa Sketch2Shape</div>
+                      <div className="text-xs text-foreground/60">Download PDF</div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
             <a href="#contact" className="text-foreground/80 hover:text-tertiary transition-all font-semibold relative group">
               Contact
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-tertiary to-secondary group-hover:w-full transition-all"></span>
