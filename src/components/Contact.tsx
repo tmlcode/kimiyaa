@@ -27,6 +27,9 @@ const Contact = () => {
   const [copied, setCopied] = useState<boolean>(false);
 
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  // Toggle this to re-enable Terms step later
+  const DOWNLOAD_HAS_TERMS = false;
+
 
   // DOWNLOAD flow still requires valid email
   const canContinueDownload = !!(name.trim() && emailValid && selectedApp);
@@ -282,11 +285,19 @@ const Contact = () => {
                 {activeTab === "download" && (
                   <>
                     {/* Step pills */}
-                    <div className="grid grid-cols-3 gap-2">
-                      <div className={`h-1.5 rounded-full ${step >= 1 ? "bg-accent" : "bg-muted/30"}`} />
-                      <div className={`h-1.5 rounded-full ${step >= 2 ? "bg-accent" : "bg-muted/30"}`} />
-                      <div className={`h-1.5 rounded-full ${step >= 3 ? "bg-accent" : "bg-muted/30"}`} />
-                    </div>
+                    {DOWNLOAD_HAS_TERMS ? (
+                      <div className="grid grid-cols-3 gap-2">
+                        <div className={`h-1.5 rounded-full ${step >= 1 ? "bg-accent" : "bg-muted/30"}`} />
+                        <div className={`h-1.5 rounded-full ${step >= 2 ? "bg-accent" : "bg-muted/30"}`} />
+                        <div className={`h-1.5 rounded-full ${step >= 3 ? "bg-accent" : "bg-muted/30"}`} />
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-2 gap-2">
+                        <div className={`h-1.5 rounded-full ${step >= 1 ? "bg-accent" : "bg-muted/30"}`} />
+                        <div className={`h-1.5 rounded-full ${step >= 2 ? "bg-accent" : "bg-muted/30"}`} />
+                      </div>
+                    )}
+
 
                     {/* STEP 1: Name + Email + App */}
                     {step === 1 && (
@@ -377,7 +388,7 @@ const Contact = () => {
                     )}
 
                     {/* STEP 2: Terms */}
-                    {step === 2 && (
+                    {DOWNLOAD_HAS_TERMS && step === 2 && (
                       <div className="space-y-6">
                         <div>
                           <h3 className="text-lg font-bold mb-3">Terms &amp; Conditions</h3>
@@ -426,7 +437,7 @@ const Contact = () => {
                     )}
 
                     {/* STEP 3: Download */}
-                    {step === 3 && (
+                    {step === (DOWNLOAD_HAS_TERMS ? 3 : 2) && (
                       <div className="space-y-6">
                         <div className="rounded-xl border border-accent/20 bg-background/5 p-4">
                           <div className="flex items-center gap-2 text-accent mb-2">
