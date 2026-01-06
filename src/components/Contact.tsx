@@ -48,8 +48,8 @@ const Contact = () => {
 
 
   const APP_LABELS: Record<AppId, string> = {
-  app1: "Kimiyaa Editor",
-  app2: "Kimiyaa Sketch2Shape",
+  app1: "Kimiyaa DCC",
+  app2: "Kimiyaa AI",
 };
 
   const getAppLabel = (app: AppId) => APP_LABELS[app];
@@ -76,6 +76,22 @@ const Contact = () => {
       days: "2",
     },
   };
+
+  const KIMIYAA_DCC_SETUP = "Setup_Kimiyaa Sketch to Shape_1.0.0.exe";
+  const KIMIYAA_AI_SETUP  = "Setup_Kimiyaa Sketch to Shape_1.0.0.exe";
+
+  // same file for both, for now
+  const DOWNLOAD_BY_APP: Record<AppId, { href: string; downloadName: string }> = {
+    app1: {
+      href: `/downloads/${encodeURIComponent(KIMIYAA_DCC_SETUP)}`,
+      downloadName: KIMIYAA_DCC_SETUP,
+    },
+    app2: {
+      href: `/downloads/${encodeURIComponent(KIMIYAA_AI_SETUP)}`,
+      downloadName: KIMIYAA_AI_SETUP,
+    },
+  };
+
 
 
   
@@ -325,9 +341,8 @@ const Contact = () => {
                                   : "border-accent/20 bg-background/5 hover:border-accent/40"
                               }`}
                             >
-                              <span className="font-semibold block">App 1</span>
+                              <span className="font-semibold block">{APP_LABELS.app1}</span>
                               <span className="text-xs text-muted-foreground block">
-                                (for example: Blender edition)
                               </span>
                             </button>
                             <button
@@ -339,9 +354,8 @@ const Contact = () => {
                                   : "border-accent/20 bg-background/5 hover:border-accent/40"
                               }`}
                             >
-                              <span className="font-semibold block">App 2</span>
+                              <span className="font-semibold block">{APP_LABELS.app2}</span>
                               <span className="text-xs text-muted-foreground block">
-                                (for example: Maya edition)
                               </span>
                             </button>
                           </div>
@@ -422,7 +436,7 @@ const Contact = () => {
                             </h3>
                           </div>
                           <p className="text-sm text-muted-foreground">
-                            You can now download the demo file for{" "}
+                            You can now download the file for{" "}
                             <span className="font-semibold">
                               {selectedApp ? getAppLabel(selectedApp) : APP_LABELS.app1}
                             </span>
@@ -433,33 +447,21 @@ const Contact = () => {
                         <Button
                           type="button"
                           onClick={() => {
-                            const appKey = selectedApp || "app1";
-                            const label = getAppLabel(appKey as AppId);
-                            const now = new Date().toLocaleString();
-                            const content = [
-                              `Demo file for ${label}`,
-                              "",
-                              `Name:  ${name}`,
-                              `Email: ${email}`,
-                              `App:   ${label}`,
-                              `Date:  ${now}`,
-                              "",
-                              "Replace this with your real file later.",
-                              "",
-                            ].join("\n");
-                            const blob = new Blob([content], { type: "text/plain" });
-                            const url = URL.createObjectURL(blob);
+                            const appKey = (selectedApp || "app1") as AppId;
+                            const { href, downloadName } = DOWNLOAD_BY_APP[appKey];
+
                             const a = document.createElement("a");
-                            a.href = url;
-                            a.download = "demo.txt";
+                            a.href = href;
+                            a.download = downloadName; // best when file is same-origin
                             document.body.appendChild(a);
                             a.click();
                             a.remove();
-                            URL.revokeObjectURL(url);
                           }}
+
                           className="w-full rounded-xl bg-gradient-to-r from-primary via-accent to-secondary text-white shadow-lg hover:shadow-2xl hover:scale-[1.01] transition-all"
                         >
-                          <Download className="h-5 w-5" /> Download demo.txt
+                          <Download className="h-5 w-5" />
+Download {selectedApp ? DOWNLOAD_BY_APP[(selectedApp as AppId)].downloadName : "Setup.exe"}
                         </Button>
 
                         <Button
