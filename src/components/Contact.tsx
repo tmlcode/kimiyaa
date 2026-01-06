@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useState, FormEvent } from "react";
+import posthog from "posthog-js";
 
 const Contact = () => {
   const [activeTab, setActiveTab] = useState<"download" | "license">("download");
@@ -147,6 +148,28 @@ const Contact = () => {
         throw new Error(`HTTP ${res.status}: ${text}`);
       }
       setLicenseKey(text.trim() || "No output received from key generator.");
+
+
+      // ...
+
+      const key = text.trim() || "No output received from key generator.";
+      setLicenseKey(key);
+
+      // use email as the distinct id if possible (best for “unique users”)
+      // fallback to hardwareId if email is empty
+      const distinctId = (email.trim() || hardwareId.trim()).toLowerCase();
+
+      posthog.identify(distinctId, {
+        name: name.trim(),
+        email: email.trim(),
+        latest_hardware_id: hardwareId.trim(), // person property (latest)
+      });
+
+      posthog.capture("license_key_generated_success", {
+        app: selectedApp,
+        hardware_id: hardwareId.trim(),        // event property (keeps history)
+      });
+
     } catch (err: any) {
       setLicenseKey(`Error generating key: ${err?.message || String(err)}`);
     } finally {
