@@ -81,8 +81,8 @@ const Contact = () => {
     },
   };
 
-  const KIMIYAA_DCC_SETUP = "Setup_Kimiyaa Sketch to Shape_1.0.0.exe";
-  const KIMIYAA_AI_SETUP  = "Setup_Kimiyaa Sketch to Shape_1.0.0.exe";
+  const KIMIYAA_DCC_SETUP = "Setup_KimiyaaDCC.exe";
+  const KIMIYAA_AI_SETUP  = "Setup_KimiyaaAI.exe";
 
   // same file for both, for now
   const DOWNLOAD_BY_APP: Record<AppId, { href: string; downloadName: string }> = {
