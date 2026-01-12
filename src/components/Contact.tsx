@@ -69,20 +69,20 @@ const Contact = () => {
       endpoint: "https://license.kimiyaa.ai/kimiyaa/cgi-bin/keygen.exe",
       fileName:
         "C:\\Sites\\KeygenSite\\kimiyaa\\cgi-bin\\registration_production_blender_mya_figma_SPECIAL.enigma64",
-      executions: "3",
-      days: "2",
+      executions: "50",
+      days: "14",
     },
     app2: {
       endpoint: "https://license.kimiyaa.ai/kimiyaa_s2s/cgi-bin/keygen.exe",
       fileName:
         "C:\\Sites\\KeygenSite\\kimiyaa_s2s\\cgi-bin\\Registration_Production_packaging_tcare_tcare2_mt34_vb_tcare2_and_venv_stripped.enigma64",
-      executions: "2",
-      days: "2",
+      executions: "50",
+      days: "14",
     },
   };
 
-  const KIMIYAA_DCC_SETUP = "Setup_KimiyaaDCC.exe";
-  const KIMIYAA_AI_SETUP  = "Setup_KimiyaaAI.exe";
+  const KIMIYAA_DCC_SETUP = "Setup_Kimiyaa Sketch to Shape_1.0.0.exe";
+  const KIMIYAA_AI_SETUP  = "Setup_Kimiyaa Sketch to Shape_1.0.0.exe";
 
   // same file for both, for now
   const DOWNLOAD_BY_APP: Record<AppId, { href: string; downloadName: string }> = {
