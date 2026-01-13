@@ -93,23 +93,20 @@ const Hero = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-5 justify-center items-center mb-16">
-            <Button 
-              size="lg" 
+            {/* Download CTA: uses the same anchor behavior as the Header "Contact" link */}
+            <Button
+              asChild
+              size="lg"
               className="bg-gradient-to-r from-primary via-tertiary to-primary bg-[length:200%_100%] hover:bg-right text-white px-12 py-8 text-xl font-bold rounded-3xl shadow-2xl transition-all duration-500 hover:scale-110 glow-multi animate-pulse-glow group"
             >
-              <Sparkles className="mr-2 h-6 w-6 group-hover:rotate-180 transition-transform duration-500" />
-              Start Creating Now
-              <ArrowRight className="ml-2 h-6 w-6 group-hover:translate-x-2 transition-transform" />
-            </Button>
-            
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="border-3 border-secondary/60 bg-secondary/10 text-foreground hover:bg-secondary/20 hover:border-secondary px-12 py-8 text-xl font-bold rounded-3xl backdrop-blur-sm hover:scale-105 transition-all"
-            >
-              Watch Demo
+              <a href="#contact">
+                <Sparkles className="mr-2 h-6 w-6 group-hover:rotate-180 transition-transform duration-500" />
+                Download
+                <ArrowRight className="ml-2 h-6 w-6 group-hover:translate-x-2 transition-transform" />
+              </a>
             </Button>
           </div>
+
 
           {/* 3D Model Preview with enhanced design */}
           <div className="mt-20 relative">

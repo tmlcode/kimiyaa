@@ -3,8 +3,8 @@ import { Star, Quote } from "lucide-react";
 const testimonials = [
   {
     name: "Sarah Chen",
-    role: "Lead Animator at PixelDreams Studio",
-    company: "PixelDreams",
+    role: "Lead Animator",
+    company: "",
     avatar: "SC",
     rating: 5,
     text: "Kimiyaa has completely revolutionized our workflow. What used to take our team 2-3 weeks now happens in under an hour. The topology quality is incredible!",
@@ -13,7 +13,7 @@ const testimonials = [
   {
     name: "Marcus Rodriguez",
     role: "Independent Game Developer",
-    company: "Indie Creator",
+    company: "",
     avatar: "MR",
     rating: 5,
     text: "As a solo developer, I couldn't afford a 3D artist. Kimiyaa gave me the power to create film-quality models myself. It's a game changer!",
@@ -22,7 +22,7 @@ const testimonials = [
   {
     name: "Emily Watson",
     role: "VFX Supervisor",
-    company: "MegaFilms Productions",
+    company: "",
     avatar: "EW",
     rating: 5,
     text: "We've integrated Kimiyaa into our production pipeline and cut costs by 85%. The AI understands nuance better than I expected. Truly impressive technology.",
@@ -31,7 +31,7 @@ const testimonials = [
   {
     name: "David Kim",
     role: "Animation Director",
-    company: "Creative Collective",
+    company: "",
     avatar: "DK",
     rating: 5,
     text: "The speed and quality are unmatched. My team can now prototype characters in real-time during client meetings. It's transformed how we work.",
@@ -40,7 +40,7 @@ const testimonials = [
   {
     name: "Jessica Park",
     role: "Content Creator",
-    company: "YouTube (2M subscribers)",
+    company: "",
     avatar: "JP",
     rating: 5,
     text: "I create animated content weekly and Kimiyaa is my secret weapon. Professional results without the professional price tag. Absolutely love it!",
@@ -49,7 +49,7 @@ const testimonials = [
   {
     name: "Alex Thompson",
     role: "Technical Art Director",
-    company: "NextGen Studios",
+    company: "",
     avatar: "AT",
     rating: 5,
     text: "The topology generation is mind-blowing. Clean quad flow, proper edge loops - it's like having a senior modeler working 24/7. Best tool we've ever used.",
@@ -128,8 +128,8 @@ const Testimonials = () => {
 
         <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
           {[
-            { number: "10K+", label: "Active Users" },
-            { number: "500K+", label: "Models Created" },
+            { number: "2K+", label: "Active Users" },
+            { number: "2K+", label: "Models Created" },
             { number: "95%", label: "Satisfaction Rate" },
             { number: "24/7", label: "Support" },
           ].map((stat, index) => (
