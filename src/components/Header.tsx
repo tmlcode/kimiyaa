@@ -10,7 +10,12 @@ const Header = () => {
           <div className="flex items-center space-x-3 group">
             <div className="relative">
               <div className="w-12 h-12 bg-gradient-to-br from-primary via-tertiary to-secondary rounded-2xl flex items-center justify-center rotate-6 group-hover:rotate-12 transition-transform glow-primary">
-                <Sparkles className="text-white w-6 h-6" />
+                <img
+                  src="/icon.ico"
+                  alt="Kimiyaa"
+                  className="w-7 h-7 object-contain"
+                  draggable={false}
+                />
               </div>
             </div>
             <span className="text-2xl font-bold">
@@ -85,15 +90,11 @@ const Header = () => {
 
           <div className="flex items-center space-x-3">
             <Button 
-              variant="outline" 
-              className="hidden sm:inline-flex border-2 border-primary/50 bg-primary/5 text-foreground hover:bg-primary/20 hover:border-primary hover:scale-105 rounded-2xl font-semibold transition-all"
-            >
-              Sign In
-            </Button>
-            <Button 
               className="bg-gradient-to-r from-primary to-tertiary hover:from-primary/90 hover:to-tertiary/90 text-white rounded-2xl font-bold px-6 shadow-lg hover:shadow-2xl hover:scale-105 transition-all glow-primary"
             >
-              Get Started
+              <a href="#contact">
+                Download
+              </a>
             </Button>
             <Button 
               variant="ghost" 
