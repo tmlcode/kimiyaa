@@ -11,7 +11,7 @@ const teamMembers = [
   },
   {
     name: "Alwyn Joseph P.",
-    role: "Advisor - Strategy, Business & Growth",
+    role: "Non Executive Chairman",
     bio: "Strategic advisor with expertise in business development and scaling operations.",
     avatar: "AJ",
     gradient: "from-tertiary to-secondary",
