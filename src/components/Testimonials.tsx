@@ -64,7 +64,7 @@ const Testimonials = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-secondary/10 via-transparent to-tertiary/10"></div>
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl"></div>
-      
+
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-20 animate-fade-in">
           <div className="inline-block mb-6">
@@ -75,8 +75,7 @@ const Testimonials = () => {
             </span>
           </div>
           <h2 className="text-5xl md:text-6xl lg:text-7xl font-black mb-6">
-            Loved by{" "}
-            <span className="text-gradient">Creators Worldwide</span>
+            Loved by <span className="text-gradient">Creators Worldwide</span>
           </h2>
           <p className="text-2xl text-muted-foreground max-w-3xl mx-auto font-medium">
             Join thousands of artists, studios, and creators who are transforming their workflow
@@ -94,31 +93,27 @@ const Testimonials = () => {
                 <div className="absolute top-4 right-4 opacity-10">
                   <Quote className="w-20 h-20 text-primary" />
                 </div>
-                
+
                 <div className="flex gap-1 mb-4">
                   {Array.from({ length: testimonial.rating }).map((_, i) => (
                     <Star key={i} className="w-5 h-5 text-accent fill-accent" />
                   ))}
                 </div>
-                
+
                 <p className="text-foreground/90 leading-relaxed mb-6 text-lg relative z-10 italic">
                   "{testimonial.text}"
                 </p>
-                
+
                 <div className="flex items-center gap-4 pt-4 border-t border-primary/20">
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${testimonial.gradient} flex items-center justify-center text-white text-xl font-bold shadow-lg group-hover:scale-110 transition-transform`}>
+                  <div
+                    className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${testimonial.gradient} flex items-center justify-center text-white text-xl font-bold shadow-lg group-hover:scale-110 transition-transform`}
+                  >
                     {testimonial.avatar}
                   </div>
                   <div>
-                    <h4 className="font-bold text-foreground text-lg">
-                      {testimonial.name}
-                    </h4>
-                    <p className="text-sm text-muted-foreground">
-                      {testimonial.role}
-                    </p>
-                    <p className="text-xs text-primary font-semibold">
-                      {testimonial.company}
-                    </p>
+                    <h4 className="font-bold text-foreground text-lg">{testimonial.name}</h4>
+                    <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                    <p className="text-xs text-primary font-semibold">{testimonial.company}</p>
                   </div>
                 </div>
               </div>
@@ -138,15 +133,89 @@ const Testimonials = () => {
               className="text-center p-6 rounded-3xl bg-gradient-to-br from-card/80 to-card/40 border-2 border-primary/20 backdrop-blur-sm animate-fade-in"
               style={{ animationDelay: `${600 + index * 100}ms` }}
             >
-              <div className="text-4xl md:text-5xl font-black text-gradient mb-2">
-                {stat.number}
-              </div>
-              <div className="text-muted-foreground font-semibold">
-                {stat.label}
-              </div>
+              <div className="text-4xl md:text-5xl font-black text-gradient mb-2">{stat.number}</div>
+              <div className="text-muted-foreground font-semibold">{stat.label}</div>
             </div>
           ))}
         </div>
+
+        {/* Studios / Partners (bottom of Testimonials section) */}
+        <div className="mt-24 pt-12 border-t-2 border-primary/20">
+          <div className="text-center mb-10 animate-fade-in" style={{ animationDelay: "1100ms" }}>
+            <p className="text-sm text-muted-foreground font-semibold mb-3">
+              Trusted by leading animation studios worldwide
+            </p>
+            <h3 className="text-3xl md:text-4xl font-black">
+              Studios & <span className="text-gradient">Partners</span>
+            </h3>
+          </div>
+
+          <div className="grid gap-8 md:grid-cols-2 max-w-5xl mx-auto">
+            {/* Xentrix: Partner line */}
+            <div className="group animate-fade-in" style={{ animationDelay: "1200ms" }}>
+              <div className="h-full p-8 rounded-3xl bg-gradient-to-br from-card/90 to-card/50 border-2 border-primary/20 hover:border-primary/50 backdrop-blur-sm hover:scale-[1.02] transition-all duration-500 shadow-xl hover:shadow-2xl relative overflow-hidden">
+                <div className="absolute top-4 right-4 opacity-10">
+                  <Quote className="w-16 h-16 text-primary" />
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <div className="h-14 w-14 rounded-2xl bg-card/60 border border-primary/15 flex items-center justify-center overflow-hidden shadow-sm">
+                    <img
+                      src="/logos/xentrix.jpeg"
+                      alt="Xentrix Studios logo"
+                      className="h-9 w-9 object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  <div className="leading-tight">
+                    <div className="text-xl font-bold text-foreground">Xentrix Studios</div>
+                    {/* <div className="text-sm text-muted-foreground font-semibold">Studio Partner</div> */}
+                  </div>
+                </div>
+
+                <p className="mt-5 text-sm md:text-base text-muted-foreground font-medium leading-relaxed">
+                  Partnered with Xentrix Studios.
+                </p>
+              </div>
+            </div>
+
+            {/* VSync: Testimonial */}
+            <div className="group animate-fade-in" style={{ animationDelay: "1300ms" }}>
+              <div className="h-full p-8 rounded-3xl bg-gradient-to-br from-card/90 to-card/50 border-2 border-primary/20 hover:border-primary/50 backdrop-blur-sm hover:scale-[1.02] transition-all duration-500 shadow-xl hover:shadow-2xl relative overflow-hidden">
+                <div className="absolute top-4 right-4 opacity-10">
+                  <Quote className="w-16 h-16 text-primary" />
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <div className="h-14 w-14 rounded-2xl bg-card/60 border border-primary/15 flex items-center justify-center overflow-hidden shadow-sm">
+                    <img
+                      src="/logos/vsync.png"
+                      alt="VSync Studios logo"
+                      className="h-9 w-9 object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  <div className="leading-tight">
+                    <div className="text-xl font-bold text-foreground">VSync Studios</div>
+                    {/* <div className="text-sm text-muted-foreground font-semibold">Studio Testimonial</div> */}
+                  </div>
+                </div>
+
+                <div className="mt-5">
+                  <p className="text-sm md:text-base text-muted-foreground italic leading-relaxed relative z-10">
+                    “Sketch to Shape slashes our modeling time and boosts creative focus while Kimiya reliably meets our quality standards.”
+                  </p>
+                  <p className="mt-4 text-xs text-muted-foreground/80 font-semibold">
+                    Mehul Hirani, Vsync Studios
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* /Studios / Partners */}
       </div>
     </section>
   );

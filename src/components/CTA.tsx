@@ -53,15 +53,6 @@ const CTA = () => {
                 </Button>
               </div>
 
-              <div className="pt-10 border-t-2 border-primary/20">
-                <p className="text-sm text-muted-foreground font-semibold mb-4">
-                  Trusted by leading animation studios worldwide
-                </p>
-                <div className="flex flex-wrap justify-center gap-12 items-center opacity-60">
-                  <span className="text-xl font-semibold">Xentrix Studios</span>
-                  <span className="text-xl font-semibold">VSync Studios</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>

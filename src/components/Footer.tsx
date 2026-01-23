@@ -14,10 +14,15 @@ const Footer = () => {
           <div>
             <div className="flex items-center space-x-3 mb-6 group">
               <div className="relative">
-                <div className="w-12 h-12 bg-gradient-to-br from-primary via-tertiary to-secondary rounded-2xl flex items-center justify-center group-hover:rotate-12 transition-transform">
-                  <Sparkles className="text-white w-6 h-6" />
-                </div>
+              <div className="w-12 h-12 bg-gradient-to-br from-primary via-tertiary to-secondary rounded-2xl flex items-center justify-center rotate-6 group-hover:rotate-12 transition-transform glow-primary">
+                <img
+                  src="/icon.ico"
+                  alt="Kimiyaa"
+                  className="w-7 h-7 object-contain"
+                  draggable={false}
+                />
               </div>
+            </div>
               <span className="text-2xl font-black">
                 <span className="text-gradient">Kimiyaa</span>
                 <span className="text-accent">.ai</span>

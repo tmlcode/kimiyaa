@@ -1,4 +1,5 @@
 import { Linkedin, Sparkles } from "lucide-react";
+import { useState } from "react";
 
 const teamMembers = [
   {
@@ -6,6 +7,7 @@ const teamMembers = [
     role: "Founder & CEO",
     bio: "Visionary entrepreneur driving innovation in 3D technology and AI-powered animation solutions.",
     avatar: "KR",
+    image: "/team/karthik.jpg",
     gradient: "from-primary to-tertiary",
     linkedin: "https://www.linkedin.com/in/karthik-rajagopalan-b94b4713a/",
   },
@@ -14,6 +16,7 @@ const teamMembers = [
     role: "Non Executive Chairman",
     bio: "Strategic advisor with expertise in business development and scaling operations.",
     avatar: "AJ",
+    image: "/team/alwyn.jpeg",
     gradient: "from-tertiary to-secondary",
     linkedin: "https://www.linkedin.com/in/alwyn-joseph-premkumar-37093913/",
   },
@@ -22,6 +25,7 @@ const teamMembers = [
     role: "Advisor (Deep Learning | 3D Vision)",
     bio: "Deep learning expert specializing in 3D computer vision and AI model optimization.",
     avatar: "KS",
+    image: "/team/kiran.jpeg",
     gradient: "from-success to-primary",
     linkedin: "https://www.linkedin.com/in/kiran-somasundaram/",
   },
@@ -30,6 +34,7 @@ const teamMembers = [
     role: "Head of Branding/Marketing",
     bio: "Crafting compelling brand narratives and driving market growth strategies.",
     avatar: "AR",
+    image: "/team/arthi.jpeg",
     gradient: "from-accent to-primary",
     linkedin: "https://www.linkedin.com/in/arthirajagopalan/",
   },
@@ -38,10 +43,53 @@ const teamMembers = [
     role: "Head of Research/Alliances",
     bio: "Leading research initiatives and strategic partnerships to advance 3D AI technology.",
     avatar: "TA",
+    image: "/team/tarun_1.jpg",
     gradient: "from-secondary to-success",
     linkedin: "https://www.linkedin.com/in/tarunabhichandani/",
   },
 ];
+
+function MemberAvatar({
+  name,
+  image,
+  fallback,
+  gradient,
+}: {
+  name: string;
+  image?: string;
+  fallback: string;
+  gradient: string;
+}) {
+  const [broken, setBroken] = useState(false);
+
+  return (
+    <div className="mb-6 relative">
+      {/* Gradient frame */}
+      <div
+        className={`w-36 h-36 mx-auto rounded-3xl bg-gradient-to-br ${gradient} p-[3px] shadow-2xl group-hover:scale-110 transition-all duration-500`}
+      >
+        <div className="w-full h-full rounded-[22px] overflow-hidden bg-card flex items-center justify-center">
+          {!broken && image ? (
+            <img
+              src={image}
+              alt={name}
+              className="w-full h-full object-cover"
+              loading="lazy"
+              onError={() => setBroken(true)}
+            />
+          ) : (
+            <span className="text-white text-4xl font-black">{fallback}</span>
+          )}
+        </div>
+      </div>
+
+      {/* Decorative corners */}
+      <div className={`absolute -top-2 -right-2 w-6 h-6 rounded-lg bg-gradient-to-br ${gradient} opacity-60`} />
+      <div className={`absolute -bottom-2 -left-2 w-6 h-6 rounded-lg bg-gradient-to-br ${gradient} opacity-60`} />
+    </div>
+  );
+}
+
 
 const Team = () => {
   return (
@@ -78,13 +126,13 @@ const Team = () => {
               <div className="h-full rounded-3xl bg-gradient-to-br from-card/90 to-card/50 border-2 border-primary/20 hover:border-primary/50 backdrop-blur-sm hover:scale-105 transition-all duration-500 p-8 shadow-xl hover:shadow-2xl relative overflow-hidden">
                 <div className={`absolute inset-0 bg-gradient-to-br ${member.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
                 
-                <div className="mb-6 relative">
-                  <div className={`w-36 h-36 mx-auto rounded-3xl bg-gradient-to-br ${member.gradient} flex items-center justify-center text-white text-4xl font-black shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
-                    {member.avatar}
-                  </div>
-                  <div className={`absolute -top-2 -right-2 w-6 h-6 rounded-lg bg-gradient-to-br ${member.gradient} opacity-60`}></div>
-                  <div className={`absolute -bottom-2 -left-2 w-6 h-6 rounded-lg bg-gradient-to-br ${member.gradient} opacity-60`}></div>
-                </div>
+                <MemberAvatar
+                  name={member.name}
+                  image={member.image}
+                  fallback={member.avatar}
+                  gradient={member.gradient}
+                />
+
                 
                 <div className="text-center relative z-10">
                   <h3 className="text-2xl font-black text-foreground mb-2">
@@ -124,15 +172,13 @@ const Team = () => {
                 {/* Glow effect on hover */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${member.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
                 
-                {/* Avatar */}
-                <div className="mb-6 relative">
-                  <div className={`w-36 h-36 mx-auto rounded-3xl bg-gradient-to-br ${member.gradient} flex items-center justify-center text-white text-4xl font-black shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
-                    {member.avatar}
-                  </div>
-                  {/* Decorative corner */}
-                  <div className={`absolute -top-2 -right-2 w-6 h-6 rounded-lg bg-gradient-to-br ${member.gradient} opacity-60`}></div>
-                  <div className={`absolute -bottom-2 -left-2 w-6 h-6 rounded-lg bg-gradient-to-br ${member.gradient} opacity-60`}></div>
-                </div>
+                <MemberAvatar
+                  name={member.name}
+                  image={member.image}
+                  fallback={member.avatar}
+                  gradient={member.gradient}
+                />
+
                 
                 {/* Content */}
                 <div className="text-center relative z-10">
