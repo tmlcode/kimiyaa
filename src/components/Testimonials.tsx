@@ -142,12 +142,14 @@ const Testimonials = () => {
         {/* Studios / Partners (bottom of Testimonials section) */}
         <div className="mt-24 pt-12 border-t-2 border-primary/20">
           <div className="text-center mb-10 animate-fade-in" style={{ animationDelay: "1100ms" }}>
-            <p className="text-sm text-muted-foreground font-semibold mb-3">
+
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-black mb-6">
+              Studios & <span className="text-gradient">Partners</span>
+            </h2>
+
+            <p className="text-2xl text-muted-foreground max-w-3xl mx-auto font-medium">
               Trusted by leading animation studios worldwide
             </p>
-            <h3 className="text-3xl md:text-4xl font-black">
-              Studios & <span className="text-gradient">Partners</span>
-            </h3>
           </div>
 
           <div className="grid gap-8 md:grid-cols-2 max-w-5xl mx-auto">
