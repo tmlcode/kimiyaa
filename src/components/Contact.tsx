@@ -63,20 +63,20 @@ const Contact = () => {
   // ✅ put your real routes here (example paths shown)
   const KEYGEN_BY_APP: Record<
     AppId,
-    { endpoint: string; fileName: string; executions: string; days: string }
+    { endpoint: string; fileName: string; days: string }
   > = {
     app1: {
       endpoint: "https://license.kimiyaa.ai/kimiyaa/cgi-bin/keygen.exe",
       fileName:
         "C:\\Sites\\KeygenSite\\kimiyaa\\cgi-bin\\registration_production_blender_mya_figma_SPECIAL.enigma64",
-      executions: "50",
-      days: "14",
+      // executions: "50",
+      days: "30",
     },
     app2: {
       endpoint: "https://license.kimiyaa.ai/kimiyaa_s2s/cgi-bin/keygen.exe",
       fileName:
         "C:\\Sites\\KeygenSite\\kimiyaa_s2s\\cgi-bin\\Registration_Production_packaging_tcare_tcare2_mt34_vb_tcare2_and_venv_stripped.enigma64",
-      executions: "50",
+      // executions: "50",
       days: "14",
     },
   };
@@ -114,7 +114,7 @@ const Contact = () => {
     }
     
     
-    const { endpoint, fileName, executions, days } = KEYGEN_BY_APP[selectedApp];
+    const { endpoint, fileName, days } = KEYGEN_BY_APP[selectedApp];
 
     const expire = new Date();
     expire.setDate(expire.getDate() + 365);
@@ -125,7 +125,7 @@ const Contact = () => {
       FileName: fileName,
       RegName: name.trim(),
       Hardware: hardwareId.trim(),
-      Executions: executions,
+      // Executions: executions,
       Days: days,
       Expiration,
     };
