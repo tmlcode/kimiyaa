@@ -77,7 +77,7 @@ const Contact = () => {
       fileName:
         "C:\\Sites\\KeygenSite\\kimiyaa_s2s\\cgi-bin\\Registration_Production_packaging_tcare_tcare2_mt34_vb_tcare2_and_venv_stripped.enigma64",
       // executions: "50",
-      days: "14",
+      days: "30",
     },
   };
 
