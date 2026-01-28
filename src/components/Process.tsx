@@ -19,7 +19,7 @@ const Process = () => {
       icon: Wand2,
       title: "Accelerate with AI",
       description:
-        "Use AI-assisted generation to quickly block out 3D forms when it helps — without locking you into automated results. Full geometry, ready for production.",
+        "Generate 3D forms with solid topology instantly, leaving you full control to refine them for production.",
       color: "from-secondary to-success",
       glow: "glow-accent",
     },
@@ -56,12 +56,10 @@ const Process = () => {
           </div>
           <h2 className="text-5xl md:text-6xl lg:text-7xl font-black mb-6">
             Two Powerful Products,{" "}
-            <span className="text-gradient">One Professional 3D Pipeline</span>
+            <span className="text-gradient">One Seamless Workflow</span>
           </h2>
           <p className="text-2xl text-muted-foreground max-w-3xl mx-auto font-medium">
-            Kimiyaa DCC is the core creation environment — with integrated
-            AI-assisted generation through Sketch to Shape, and upcoming
-            AI-powered rigging and animation. From concept to completion.
+            Kimiyaa DCC is the core creation environment — featuring AI-assisted Sketch to Shape with production-ready topology, and AI capabilities soon extending to our Rigging and Animation tools. From concept to completion, all in one workflow.
           </p>
         </div>
 
@@ -113,7 +111,7 @@ const Process = () => {
             Outputs, Accelerated
           </h3>
           <p className="text-xl text-muted-foreground font-medium">
-            Enhanced by Kimiyaa AI, crafted in Kimiyaa DCC. Whether generating models or assisting with rigging cleanup, our suite fast-tracks your workflow to deliver production-ready Maya outputs for any project.
+            Enhanced by Kimiyaa AI, crafted in Kimiyaa DCC. Save time, money, and unleash your creativity.
           </p>
         </div>
       </div>

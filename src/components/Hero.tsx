@@ -89,7 +89,6 @@ const Hero = () => {
           <p className="text-xl md:text-2xl lg:text-3xl text-muted-foreground mb-12 max-w-4xl mx-auto font-medium leading-relaxed">
             From <span className="text-primary font-bold">Concept</span> to <span className="text-secondary font-bold">Polished 3D Masterpieces</span>— all in one place. 
             Refine, animate, and produce inside our professional digital content creation platform — enhanced with AI where it matters.
-            Complete <span className="text-accent font-bold">animation workflows</span> - all in one place.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-5 justify-center items-center mb-16">
