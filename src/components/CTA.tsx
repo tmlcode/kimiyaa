@@ -34,7 +34,7 @@ const CTA = () => {
               </h2>
               
               <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto font-medium leading-relaxed">
-                Join <span className="text-primary font-bold">10,000+ creators</span> who are already using Kimiyaa.ai to transform their animation pipeline. 
+                Join <span className="text-primary font-bold">2,000+ creators</span> who are already using Kimiyaa.ai to transform their animation pipeline. 
                 Start creating <span className="text-secondary font-bold">production-quality 3D</span> today.
               </p>
               
