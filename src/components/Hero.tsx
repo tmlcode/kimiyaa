@@ -87,8 +87,8 @@ const Hero = () => {
           </h1>
           
           <p className="text-xl md:text-2xl lg:text-3xl text-muted-foreground mb-12 max-w-4xl mx-auto font-medium leading-relaxed">
-            From <span className="text-primary font-bold">Sketch to Shape</span> to <span className="text-secondary font-bold">3D Masterpiece</span>. 
-            Start with AI-powered generation, then refine in our professional digital content creation software. 
+            From <span className="text-primary font-bold">Concept</span> to <span className="text-secondary font-bold">Polished 3D Masterpieces</span>— all in one place. 
+            Refine, animate, and produce inside our professional digital content creation platform — enhanced with AI where it matters.
             Complete <span className="text-accent font-bold">animation workflows</span> - all in one place.
           </p>
           
