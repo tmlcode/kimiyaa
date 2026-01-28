@@ -3,6 +3,13 @@ import { Clock, DollarSign, Sparkles, Zap, Award, Workflow, Unlock } from "lucid
 const Features = () => {
   const features = [
     {
+      icon: Workflow,
+      title: "Precisely Matched Industry-Standard Workflow",
+      description: "Seamlessly integrates with the workflows your teams already know—no retraining required.",
+      color: "from-primary to-accent",
+      border: "border-primary/40",
+    },
+    {
       icon: Clock,
       title: "Lightning Fast",
       description: "Reduces time drastically. Transform weeks of work into moments with instant 3D generation.",
@@ -15,6 +22,13 @@ const Features = () => {
       description: "Slash production costs dramatically while maintaining premium production-quality results.",
       color: "from-secondary to-success",
       border: "border-secondary/40",
+    },
+    {
+      icon: Zap,
+      title: "Runs Offline",
+      description: "Work anywhere, anytime. No internet connection required for full functionality.",
+      color: "from-success to-secondary",
+      border: "border-success/40",
     },
     {
       icon: Sparkles,
@@ -31,25 +45,11 @@ const Features = () => {
       border: "border-tertiary/40",
     },
     {
-      icon: Zap,
-      title: "Runs Offline",
-      description: "Work anywhere, anytime. No internet connection required for full functionality.",
-      color: "from-success to-secondary",
-      border: "border-success/40",
-    },
-    {
       icon: Sparkles,
       title: "Always Learning",
       description: "Our AI constantly improves, delivering better results with every update.",
       color: "from-secondary to-accent",
       border: "border-secondary/40",
-    },
-    {
-      icon: Workflow,
-      title: "Precisely Matched Industry-Standard Workflow",
-      description: "Seamlessly integrates with the workflows your teams already know—no retraining required.",
-      color: "from-primary to-accent",
-      border: "border-primary/40",
     },
     {
       icon: Unlock,
