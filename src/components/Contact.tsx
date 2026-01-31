@@ -112,7 +112,7 @@ const Contact = () => {
       setLicenseKey(`Please select ${APP_LABELS.app1} or ${APP_LABELS.app2}.`);
       return;
     }
-    
+     // to test
     
     const { endpoint, fileName, days } = KEYGEN_BY_APP[selectedApp];
 
