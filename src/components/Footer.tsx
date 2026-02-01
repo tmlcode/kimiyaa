@@ -33,10 +33,10 @@ const Footer = () => {
               Creating the future, one model at a time.
             </p>
             <div className="flex gap-3">
-              <a href="#" className="w-11 h-11 rounded-2xl bg-primary/10 hover:bg-primary/20 border border-primary/30 hover:border-primary/50 flex items-center justify-center transition-all hover:scale-110">
+              <a href="https://discord.gg/f9UfgsJf" className="w-11 h-11 rounded-2xl bg-primary/10 hover:bg-primary/20 border border-primary/30 hover:border-primary/50 flex items-center justify-center transition-all hover:scale-110">
                 <SiDiscord className="w-5 h-5 text-primary" />
               </a>
-              <a href="#" className="w-11 h-11 rounded-2xl bg-secondary/10 hover:bg-secondary/20 border border-secondary/30 hover:border-secondary/50 flex items-center justify-center transition-all hover:scale-110">
+              <a href="https://www.linkedin.com/company/treadstonestudios/?viewAsMember=true" className="w-11 h-11 rounded-2xl bg-secondary/10 hover:bg-secondary/20 border border-secondary/30 hover:border-secondary/50 flex items-center justify-center transition-all hover:scale-110">
                 <Linkedin className="w-5 h-5 text-secondary" />
               </a>
               <a href="mailto:info@kimiyaa.ai" className="w-11 h-11 rounded-2xl bg-tertiary/10 hover:bg-tertiary/20 border border-tertiary/30 hover:border-tertiary/50 flex items-center justify-center transition-all hover:scale-110">
