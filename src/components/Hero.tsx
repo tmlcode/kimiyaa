@@ -1,72 +1,209 @@
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles, Zap } from "lucide-react";
+import { ArrowRight, PlayCircle, Sparkles, Zap } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay } from "swiper/modules";
-import { useEffect, useRef, useState } from "react";
+import { Autoplay } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
-import "swiper/css/pagination";
-// If you installed the ESM package, import it once anywhere in your app:
-import "@google/model-viewer";
 
-const PHASE_MS = 4000;     // 4s solid, 4s wireframe (50/50). Adjust as you like.
-const ROT_SPEED = Math.PI / PHASE_MS;
-const VIEW_MARGIN = 1.12; // 12% farther away; tweak 1.05–1.2 to taste // radians per ms -> a half-turn every phase
+const heroVideos = [
+  {
+    src: "/videos/Bottle_Modeling.mp4",
+    title: "Modeling",
+    // subtitle: "Clean silhouette blocking and primary form shaping.",
+    accent: "from-primary/25 via-tertiary/15 to-transparent",
+  },
+  {
+    src: "/videos/Bottle_Modeling.mp4",
+    title: "Modeling",
+    // subtitle: "Sharper details, smoother surfaces, and production polish.",
+    accent: "from-secondary/25 via-accent/15 to-transparent",
+  },
+  {
+    src: "/videos/Bottle_Modeling.mp4",
+    title: "Modeling",
+    // subtitle: "From rough concept to showcase-ready cinematic output.",
+    accent: "from-accent/25 via-primary/15 to-transparent",
+  },
+];
 
-const Hero = () => {
-  const solidRef = useRef<any>(null);
-  const wireRef  = useRef<any>(null);
-  const rafRef   = useRef<number | null>(null);
+export const HeroVideoCarouselSection = () => {
+  const [failedSlides, setFailedSlides] = useState<Record<number, boolean>>({});
+  const [activeIndex, setActiveIndex] = useState(0);
+  const videoRefs = useRef<Array<HTMLVideoElement | null>>([]);
 
-  const [showWire, setShowWire] = useState(false);
+  const syncActiveVideo = useCallback((realIndex: number) => {
+    videoRefs.current.forEach((video, index) => {
+      if (!video) return;
+
+      if (index === realIndex) {
+        video.currentTime = video.currentTime;
+        video.muted = true;
+        video.defaultMuted = true;
+        video.loop = true;
+        video.playsInline = true;
+
+        const playPromise = video.play();
+        if (playPromise && typeof playPromise.catch === "function") {
+          playPromise.catch(() => {});
+        }
+      } else {
+        video.pause();
+      }
+    });
+  }, []);
 
   useEffect(() => {
-    let theta = 0;                   // continuous camera angle
-    let last = performance.now();
-    let phaseStart = last;
+    syncActiveVideo(activeIndex);
+  }, [activeIndex, syncActiveVideo]);
 
-    const step = (t: number) => {
-      const dt = t - last;
-      last = t;
+  return (
+    <div className="relative mt-20 overflow-hidden rounded-[2rem] border border-secondary/20 bg-gradient-to-br from-secondary/14 via-card/95 to-primary/12 p-6 shadow-[0_20px_80px_rgba(0,0,0,0.18)] backdrop-blur-sm md:mt-24 md:p-8">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -left-12 top-10 h-32 w-32 rounded-full bg-secondary/15 blur-3xl animate-float" />
+        <div className="absolute right-0 top-0 h-36 w-36 rounded-full bg-primary/10 blur-3xl animate-float" style={{ animationDelay: "1s" }} />
+        <div className="absolute bottom-0 left-1/3 h-28 w-28 rounded-full bg-accent/10 blur-3xl animate-float" style={{ animationDelay: "2s" }} />
+      </div>
 
-      // advance rotation continuously
-      theta += ROT_SPEED * dt;       // rad
-      const viewerSolid = solidRef.current;
-      const viewerWire  = wireRef.current;
+      <div className="relative mb-8 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+        <div>
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-secondary/25 bg-secondary/10 px-4 py-2 text-2xl font-bold uppercase tracking-[0.26em] text-secondary/85 backdrop-blur-sm">
+            <PlayCircle className="h-4 w-4 text-2xl md:text-3xl" />
+            Real Workflows In Action
+          </div>
+          {/* <h3 className="text-2xl font-black text-foreground md:text-3xl">
+            Real Workflows In Action
+          </h3> */}
+          {/* <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
+            A looping showcase of workflow moments, styled like a moving gallery wall.
+          </p> */}
+        </div>
 
-      // read phi/radius from one viewer (defaults if missing)
-      const base = viewerSolid?.getCameraOrbit?.() ?? { theta: 0, phi: Math.PI / 2, radius: 2 };
-      const radiusSafe = base.radius * VIEW_MARGIN;  // <-- extra margin
-      const orbit = `${theta}rad ${base.phi}rad ${radiusSafe}m`;
+        <div className="hidden items-center gap-2 md:flex">
+          {heroVideos.map((video, index) => (
+            <button
+              key={video.title}
+              type="button"
+              aria-label={`Go to ${video.title}`}
+              onClick={() => setActiveIndex(index)}
+              className={`h-2.5 rounded-full transition-all duration-500 ${
+                index === activeIndex ? "w-10 bg-secondary shadow-[0_0_20px_rgba(168,85,247,0.45)]" : "w-2.5 bg-foreground/20 hover:bg-foreground/35"
+              }`}
+            />
+          ))}
+        </div>
+      </div>
 
+      <Swiper
+        modules={[Autoplay]}
+        className="hero-video-carousel"
+        loop
+        centeredSlides
+        grabCursor
+        watchSlidesProgress
+        observer
+        observeParents
+        spaceBetween={24}
+        slidesPerView={1.05}
+        speed={950}
+        autoplay={{
+          delay: 3200,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: false,
+          stopOnLastSlide: false,
+        }}
+        breakpoints={{
+          640: { slidesPerView: 1.08, spaceBetween: 24 },
+          1024: { slidesPerView: 1.18, spaceBetween: 28 },
+          1280: { slidesPerView: 1.22, spaceBetween: 32 },
+        }}
+        onSwiper={(swiper) => setActiveIndex(swiper.realIndex)}
+        onRealIndexChange={(swiper: SwiperType) => setActiveIndex(swiper.realIndex)}
+      >
+        {heroVideos.map((video, index) => {
+          const isActive = index === activeIndex;
 
-      // update both, so whichever is visible stays in sync
-      if (viewerSolid) viewerSolid.cameraOrbit = orbit;
-      if (viewerWire)  viewerWire.cameraOrbit  = orbit;
+          return (
+            <SwiperSlide key={`${video.title}-${index}`}>
+              <div
+                className={`group relative overflow-hidden rounded-[1.9rem] border border-white/10 bg-black/90 shadow-[0_20px_60px_rgba(0,0,0,0.35)] transition-all duration-700 ${
+                  isActive
+                    ? "scale-100 opacity-100 ring-1 ring-secondary/25"
+                    : "scale-[0.94] opacity-65"
+                }`}
+              >
+                <div className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${video.accent}`} />
 
-      // handle 50/50 phase flip (no snapping)
-      if (t - phaseStart >= PHASE_MS) {
-        setShowWire(prev => !prev);
-        phaseStart = t;
-      }
+                <div className="relative border-b border-white/10 bg-black/40 px-5 py-4 backdrop-blur-md md:px-6">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="mb-1 text-xs font-bold uppercase tracking-[0.28em] text-secondary/85">
+                        Video {String(index + 1).padStart(2, "0")}
+                      </p>
+                      <h4 className="text-lg font-black text-white md:text-xl">
+                        {video.title}
+                      </h4>
+                      <p className="mt-1 text-sm text-white/70 md:text-base">
+                        {video.subtitle}
+                      </p>
+                    </div>
 
-      rafRef.current = requestAnimationFrame(step);
-    };
+                    <div className={`hidden rounded-full border border-white/10 px-3 py-1 text-xs font-semibold text-white/70 backdrop-blur-sm md:block transition-all duration-500 ${isActive ? "bg-white/10" : "bg-white/5"}`}>
+                      {isActive ? "Now Playing" : "In Queue"}
+                    </div>
+                  </div>
+                </div>
 
-    rafRef.current = requestAnimationFrame(step);
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, []);
+                {failedSlides[index] ? (
+                  <div className="relative flex aspect-video w-full items-center justify-center bg-black px-6 text-center text-sm text-white/70 md:text-base">
+                    Add your video at <span className="mx-1 font-semibold text-white">public/videos/Bottle_Modeling.mp4</span> to show this carousel.
+                  </div>
+                ) : (
+                  <div className="relative">
+                    <video
+                      ref={(el) => {
+                        videoRefs.current[index] = el;
+                      }}
+                      className="block aspect-video w-full bg-black object-cover"
+                      src={video.src}
+                      loop
+                      muted
+                      playsInline
+                      autoPlay
+                      controls
+                      preload="metadata"
+                      controlsList="nodownload"
+                      onLoadedData={() => {
+                        if (index === activeIndex) {
+                          syncActiveVideo(index);
+                        }
+                      }}
+                      onError={() => {
+                        setFailedSlides((prev) => ({ ...prev, [index]: true }));
+                      }}
+                    />
+
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent" />
+                  </div>
+                )}
+              </div>
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
+    </div>
+  );
+};
+
+const Hero = () => {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      {/* Animated mesh background */}
       <div className="absolute inset-0 bg-gradient-mesh opacity-40"></div>
-      
-      {/* Animated orbs */}
+
       <div className="absolute top-20 left-10 w-96 h-96 bg-primary/30 rounded-full blur-3xl animate-float"></div>
-      <div className="absolute top-40 right-20 w-80 h-80 bg-secondary/30 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute bottom-20 left-1/4 w-72 h-72 bg-accent/30 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
-      <div className="absolute bottom-40 right-1/3 w-64 h-64 bg-tertiary/30 rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }}></div>
+      <div className="absolute top-40 right-20 w-80 h-80 bg-secondary/30 rounded-full blur-3xl animate-float" style={{ animationDelay: "1s" }}></div>
+      <div className="absolute bottom-20 left-1/4 w-72 h-72 bg-accent/30 rounded-full blur-3xl animate-float" style={{ animationDelay: "2s" }}></div>
+      <div className="absolute bottom-40 right-1/3 w-64 h-64 bg-tertiary/30 rounded-full blur-3xl animate-float" style={{ animationDelay: "3s" }}></div>
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-6xl mx-auto text-center animate-fade-in">
@@ -77,7 +214,7 @@ const Hero = () => {
               <Zap className="w-5 h-5 text-accent animate-pulse" />
             </div>
           </div>
-          
+
           <h1 className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black mb-8 leading-tight">
             <span className="text-gradient">Transform</span>
             <br />
@@ -85,14 +222,13 @@ const Hero = () => {
             <br />
             <span className="text-gradient-secondary">Vision to 3D</span>
           </h1>
-          
+
           <p className="text-xl md:text-2xl lg:text-3xl text-muted-foreground mb-12 max-w-4xl mx-auto font-medium leading-relaxed">
-            From <span className="text-primary font-bold">Concept</span> to <span className="text-secondary font-bold">Polished 3D Masterpieces</span>— all in one place. 
+            From <span className="text-primary font-bold">Concept</span> to <span className="text-secondary font-bold">Polished 3D Masterpieces</span>— all in one place.
             Shape, animate, and deliver using complete animation workflows inside a professional DCC—enhanced with AI where it matters.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-5 justify-center items-center mb-16">
-            {/* Download CTA: uses the same anchor behavior as the Header "Contact" link */}
             <Button
               asChild
               size="lg"
@@ -104,80 +240,6 @@ const Hero = () => {
                 <ArrowRight className="ml-2 h-6 w-6 group-hover:translate-x-2 transition-transform" />
               </a>
             </Button>
-          </div>
-
-
-          {/* 3D Model Preview with enhanced design */}
-          <div className="mt-20 relative">
-            {/* Keep your top gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10 pointer-events-none"></div>
-
-            <div className="rounded-3xl border-2 border-primary/30 bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-md p-10 animate-scale-in shadow-2xl">
-              <div className="aspect-video rounded-2xl bg-gradient-to-br from-muted/40 to-background/60 border-2 border-primary/20 flex items-center justify-center relative overflow-hidden">
-
-                {/* Your animated background grid (stays behind) */}
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(280_90%_65%/0.1)_1px,transparent_1px),linear-gradient(to_bottom,hsl(280_90%_65%/0.1)_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none"></div>
-
-                {/* When wireframe is showing, place a FULL opaque cover above everything behind (z-20) */}
-                {showWire && (
-                  <div
-                    className="absolute inset-0 z-20"
-                    // Force fully opaque background regardless of theme alpha utilities:
-                    style={{ background: "hsl(var(--background))" }}
-                  />
-                )}
-
-                {/* Safe inset so content never touches the edges */}
-                <div className="absolute inset-0 z-30 p-4 sm:p-6 md:p-8">
-                  <div className="relative w-full h-full rounded-xl overflow-hidden">
-                    {/* Solid model */}
-                    <model-viewer
-                      ref={solidRef}
-                      src="/torus_knot_grey.glb"
-                      camera-controls
-                      shadow-intensity="0.6"
-                      exposure="0.9"
-                      environment-image="neutral"
-                      interaction-prompt="none"
-                      ar={false}
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        width: "100%",
-                        height: "100%",
-                        transition: "opacity 400ms ease",
-                        opacity: showWire ? 0 : 1,
-                        // optional: tiny scale cushion if your mesh is super tight
-                        // transform: "scale(0.98)",
-                        // transformOrigin: "center",
-                      }}
-                    />
-
-                    {/* Wireframe */}
-                    <model-viewer
-                      ref={wireRef}
-                      src="/torus_knot_wire_orange.glb"
-                      camera-controls
-                      shadow-intensity="0"
-                      exposure="1.0"
-                      environment-image="neutral"
-                      interaction-prompt="none"
-                      ar={false}
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        width: "100%",
-                        height: "100%",
-                        transition: "opacity 400ms ease",
-                        opacity: showWire ? 1 : 0,
-                        // transform: "scale(0.98)",
-                        // transformOrigin: "center",
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

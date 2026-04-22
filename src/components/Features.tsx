@@ -1,4 +1,5 @@
 import { Clock, DollarSign, Sparkles, Zap, Award, Workflow, Unlock } from "lucide-react";
+import { HeroVideoCarouselSection } from "@/components/Hero";
 
 const Features = () => {
   const features = [
@@ -62,10 +63,9 @@ const Features = () => {
 
   return (
     <section id="features" className="py-32 relative overflow-hidden">
-      {/* Background effects */}
       <div className="absolute inset-0 bg-gradient-mesh opacity-20"></div>
       <div className="absolute top-1/4 right-0 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-tertiary/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+      <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-tertiary/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "2s" }}></div>
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-20 animate-fade-in">
@@ -112,7 +112,6 @@ const Features = () => {
           })}
         </div>
 
-        {/* Bottom CTA */}
         <div className="mt-20 text-center animate-fade-in bg-gradient-to-r from-primary/10 via-tertiary/10 to-accent/10 rounded-3xl p-12 border-2 border-primary/30 backdrop-blur-sm max-w-5xl mx-auto">
           <h3 className="text-4xl font-black mb-4">
             <span className="text-gradient">Democratizing</span> Professional Content Creation
@@ -122,6 +121,8 @@ const Features = () => {
             professional workflows—creative power is now in everyone's hands.
           </p>
         </div>
+
+        <HeroVideoCarouselSection />
       </div>
     </section>
   );
