@@ -58,7 +58,7 @@ export const HeroVideoCarouselSection = () => {
   }, [activeIndex, syncActiveVideo]);
 
   return (
-    <div className="relative mt-20 overflow-hidden rounded-[2rem] border border-secondary/20 bg-gradient-to-br from-secondary/14 via-card/95 to-primary/12 p-6 shadow-[0_20px_80px_rgba(0,0,0,0.18)] backdrop-blur-sm md:mt-24 md:p-8">
+    <div id="demo" className="relative mt-20 overflow-hidden rounded-[2rem] border border-secondary/20 bg-gradient-to-br from-secondary/14 via-card/95 to-primary/12 p-6 shadow-[0_20px_80px_rgba(0,0,0,0.18)] backdrop-blur-sm md:mt-24 md:p-8">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -left-12 top-10 h-32 w-32 rounded-full bg-secondary/15 blur-3xl animate-float" />
         <div className="absolute right-0 top-0 h-36 w-36 rounded-full bg-primary/10 blur-3xl animate-float" style={{ animationDelay: "1s" }} />

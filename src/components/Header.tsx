@@ -39,6 +39,10 @@ const Header = () => {
               Features
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-accent to-primary group-hover:w-full transition-all"></span>
             </a>
+            <a href="#demo" className="text-foreground/80 hover:text-primary transition-all font-semibold relative group">
+              Demo
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary group-hover:w-full transition-all"></span>
+            </a>
             {/* Documentation dropdown */}
             <div
               className="relative"
