@@ -43,6 +43,10 @@ const Header = () => {
               Demo
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary group-hover:w-full transition-all"></span>
             </a>
+            <a href="#testimonials" className="text-foreground/80 hover:text-secondary transition-all font-semibold relative group">
+              Testimonials
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-secondary to-tertiary group-hover:w-full transition-all"></span>
+            </a>
             {/* Documentation dropdown */}
             <div
               className="relative"
