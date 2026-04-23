@@ -190,6 +190,27 @@ const Contact = () => {
     }
   };
 
+  const trackDownload = (appKey: AppId) => {
+    const { href, downloadName } = DOWNLOAD_BY_APP[appKey];
+    const distinctId = email.trim().toLowerCase();
+
+    if (distinctId) {
+      posthog.identify(distinctId, {
+        name: name.trim(),
+        email: email.trim(),
+      });
+    }
+
+    posthog.capture("download_clicked", {
+      app: appKey,
+      app_label: getAppLabel(appKey),
+      download_name: downloadName,
+      download_href: href,
+      name: name.trim(),
+      email: email.trim(),
+    });
+  };
+
   const appLabel = selectedApp ? getAppLabel(selectedApp) : "";
 
   return (
@@ -484,9 +505,11 @@ const Contact = () => {
                             const appKey = (selectedApp || "app1") as AppId;
                             const { href, downloadName } = DOWNLOAD_BY_APP[appKey];
 
+                            trackDownload(appKey);
+
                             const a = document.createElement("a");
                             a.href = href;
-                            a.download = downloadName; // best when file is same-origin
+                            a.download = downloadName;
                             document.body.appendChild(a);
                             a.click();
                             a.remove();
