@@ -6,6 +6,7 @@ import { Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 
+
 const heroVideos = [
   {
     src: "/videos/Bottle_Modeling.mp4",
